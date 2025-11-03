@@ -13,7 +13,7 @@ public class CustomerDao {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		String sql = "select customer_code, customer_id, customer_pw, customer_name, customer_phone, point, createdate"
-					+ " from customer"
+					+ " from gdj95.customer"
 					+ " where customer_id = ? and customer_pw = ?";
 		stmt = conn.prepareStatement(sql);
 		stmt.setString(1, customerId);
@@ -34,5 +34,12 @@ public class CustomerDao {
 		rs.close(); stmt.close(); conn.close();
 		
 		return cstm;
+	}
+	
+	public int insertCustomer(Customer cstm) {
+		
+		
+		
+		return 0;
 	}
 }

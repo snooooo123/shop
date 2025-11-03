@@ -13,8 +13,8 @@ public class EmpDao {
 		Connection conn = DBConnection.getConn();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		String sql = "select emp_code, emp_id, emp_pw, emp_name, emp_active, createdate"
-					+ " from emp"
+		String sql = "select emp_code, emp_id, emp_pw, emp_name, active, createdate"
+					+ " from gdj95.emp"
 					+ " where emp_id = ? and emp_pw = ?";
 		stmt = conn.prepareStatement(sql);
 		stmt.setString(1, empId);

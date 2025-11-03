@@ -9,5 +9,10 @@
 </head>
 <body>
 	<h1>customerIndex</h1>
+	<div>
+		${loginCustomer.customerName}님 반갑습니다.
+		(point : ${loginCustomer.point})
+		<a href="${pageContext.request.contextPath}/customer/customerlogout"></a>
+	</div>
 </body>
 </html>
