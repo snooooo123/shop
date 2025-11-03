@@ -7,20 +7,26 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import dao.CustomerDao;
+
 
 @WebServlet("/out/login")
 public class LoginController extends HttpServlet {
 	// form
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("WEB-INF/view/out/login.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/out/login.jsp").forward(request, response);
 		
 	}
 	// action
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String customerOrEmpSel = request.getParameter("customerOrEmpSel");
+		String Id = request.getParameter("id");
 		
-		String redirectUrl = "";
 		if(customerOrEmpSel.equals("customer")) {
+			
+			CustomerDao cstmDao = new CustomerDao();
+			//cstmDao.selectCustomerByLogin(, )
+			
 			// session.setAttribute("loginCustomer", loginCustomer);
 			response.sendRedirect(request.getContextPath()+"/customer/customerIndex");
 		} else if(customerOrEmpSel.equals("emp")) {

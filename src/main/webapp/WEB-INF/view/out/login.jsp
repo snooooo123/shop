@@ -14,11 +14,11 @@
 			<div>
 				<table>
 					<tr>
-						<td>id</td>
+						<td>Id</td>
 						<td><input type="text" name="id" id="id"></td>
 					</tr>
 					<tr>
-						<td>pw</td>
+						<td>Pw</td>
 						<td><input type="password" name="pw" id="pw"></td>
 					</tr>
 				</table>
