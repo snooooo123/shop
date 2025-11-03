@@ -8,5 +8,7 @@
 </head>
 <body>
 	<h1>Home</h1>
+	<h2>반갑습니다.<h2>
 </body>
+
 </html>
