@@ -44,8 +44,6 @@ public class EmpListController extends HttpServlet {
 		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("lastPage", lastPage);
 		request.setAttribute("empList", empList);
-		request.getRequestDispatcher("/WEB-INF/view/emp/empList.jsp").forward(request, response);
-		
+		request.getRequestDispatcher("/WEB-INF/view/emp/empList.jsp").forward(request, response);		
 	}
-
 }

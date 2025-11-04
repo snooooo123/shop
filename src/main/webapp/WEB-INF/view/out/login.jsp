@@ -163,14 +163,35 @@
 	</div>
 </body>
 	<script>
+	$(document).ready(function() {
+	    
+	    // ⭐ [수정된 jQuery 로직] ⭐
+	    $('input[name="customerOrEmpSel"]').on('change', function() {
+	        
+	        // 1. name 속성을 이용해 '현재 선택된' 라디오 버튼의 value를 가져옵니다.
+	        //    (change 이벤트가 발생한 요소의 value는 이미 this.value로도 접근 가능)
+	        const selectedValue = $('input[name="customerOrEmpSel"]:checked').val();
+	        
+	        // 2. 값을 'emp'와 비교합니다.
+	        if (selectedValue === 'emp') {
+	            // 'emp'가 선택된 경우: 파란색으로 변경
+	            $('#btn').css('background-color', '#007bff');
+	        } else {
+	            // 'customer'가 선택된 경우: 원래의 빨간색으로 복구
+	            $('#btn').css('background-color', '#ff3333');
+	        }
+	    });
 		$('#btn').click(()=>{
 			if($('#id').val() == ''){
 				alert('id를 입력하세요');
-			} else if($('#pw').val() == ''){
+				return;
+			}
+			if($('#pw').val() == ''){
 				alert('pw를 입력하세요');
-			} else {
-				$('form').submit();				
-			}				
-		})
+				return;
+			} 
+			$('form').submit();											
+		});
+	});
 	</script>
 </html>

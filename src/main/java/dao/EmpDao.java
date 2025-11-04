@@ -117,4 +117,32 @@ public class EmpDao {
 		stmt.close(); conn.close();
 		return row;
 	}
+	// 아이디 중복 확인
+	public boolean idCheck(String id) throws SQLException {
+		Connection conn = DBConnection.getConn();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String sql = """
+					select t.id
+					from 
+						(select customer_id id from customer
+						union all
+						select emp_id id from emp
+						union all
+						select id from outid) t
+					where t.id=?
+				""";
+		stmt = conn.prepareStatement(sql);
+		stmt.setString(1, id);
+		rs = stmt.executeQuery();	
+		
+		//System.out.println(id); // 디버깅
+		
+		boolean yn = true;
+		if(rs.next()) {
+			yn = false;
+		}
+		rs.close(); stmt.close(); conn.close();
+		return yn;
+	}
 }

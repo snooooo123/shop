@@ -36,10 +36,23 @@ public class CustomerDao {
 		return cstm;
 	}
 	
-	public int insertCustomer(Customer cstm) {
+	public int insertCustomer(Customer cstm) throws SQLException {
+		Connection conn = DBConnection.getConn();
+		PreparedStatement stmt = null;
 		
+		String sql = """
+					insert into customer(customer_code, customer_id, customer_pw, customer_name,
+					customer_phone, point, createdate)
+					values(seq_customer.nextval, ?, ?, ?, ?, 0, sysdate)
+				""";
+		stmt = conn.prepareStatement(sql);
+		stmt.setString(1, cstm.getCustomerId());
+		stmt.setString(2, cstm.getCustomerPw());
+		stmt.setString(3, cstm.getCustomerName());
+		stmt.setString(4, cstm.getCustomerPhone());
+		int row = stmt.executeUpdate();
 		
-		
-		return 0;
+		stmt.close(); conn.close();
+		return row;
 	}
 }

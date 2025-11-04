@@ -11,9 +11,6 @@ import java.sql.SQLException;
 import dao.EmpDao;
 import dto.Emp;
 
-/**
- * Servlet implementation class AddEmpController
- */
 @WebServlet("/emp/addEmp")
 public class AddEmpController extends HttpServlet {
 
@@ -35,9 +32,9 @@ public class AddEmpController extends HttpServlet {
 		try {
 			int row = empDao.addEmp(emp);
 			if(row==0) {
-				System.out.println("emp가입 실패");
+				System.out.println("emp추가 실패");
 			} else {
-				System.out.println("emp가입 성공");
+				System.out.println("emp추가 성공");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
