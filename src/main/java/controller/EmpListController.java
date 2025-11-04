@@ -18,23 +18,31 @@ public class EmpListController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int currentPage = 1;
 		if(request.getParameter("currentPage") != null) {
-			currentPage = Integer.parseInt(request.getParameter("curretnPage"));			
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));			
 		}
 		int rowPerPage = 10;
 		int beginRow = (currentPage-1) * rowPerPage;
 		
 		int lastPage = 0; //=========================================================== 해야댈거
+		int cnt = 0;
 		
 		EmpDao empDao = new EmpDao();
 		List<Emp> empList = null;
 		try {
 			empList = empDao.selectEmplistByPage(beginRow, rowPerPage);
+			cnt = empDao.countEmpList();
+			if(cnt/10==0 || cnt%10!=0) {
+				lastPage = cnt/10 + 1;
+			} else {
+				lastPage = cnt/10; 
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
 		// 모델 속성
 		request.setAttribute("currentPage", currentPage);
+		request.setAttribute("lastPage", lastPage);
 		request.setAttribute("empList", empList);
 		request.getRequestDispatcher("/WEB-INF/view/emp/empList.jsp").forward(request, response);
 		

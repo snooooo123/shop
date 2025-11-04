@@ -38,7 +38,7 @@ public class EmpDao {
 		return emp;
 	}
 
-	// 사원목록
+	// 사원목록 몇 줄씩
 	public List<Emp> selectEmplistByPage(int beginRow, int rowPerPage) throws SQLException {
 		Connection conn = DBConnection.getConn();
 		PreparedStatement stmt = null;
@@ -66,6 +66,55 @@ public class EmpDao {
 		}
 		
 		// offset 10 rows fetch next 10 rows only : 10행 다음부터 10개의 행을 가져옴
-		return null;
-	}		
+		
+		rs.close(); stmt.close(); conn.close();
+		return list;
+	}
+	// emp count
+	public int countEmpList() throws SQLException {
+		Connection conn = DBConnection.getConn();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String sql = "select count(*) from emp";
+		stmt = conn.prepareStatement(sql);
+		rs = stmt.executeQuery();
+		
+		int r = 0;
+		if(rs.next()) {
+			r = rs.getInt(1);
+		}
+		rs.close(); stmt.close(); conn.close();
+		return r;
+	}
+	// emp active 활성/비활성
+	public int activeChange(int empCode, int active) throws SQLException {
+		Connection conn = DBConnection.getConn();
+		PreparedStatement stmt = null;
+		int row = 0;
+		String sql = "update emp set active = ? where emp_code=?";
+		stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, active);
+		stmt.setInt(2, empCode);
+		row = stmt.executeUpdate();
+		
+		stmt.close(); conn.close();	
+		return row;
+	}
+	// 사원 추가
+	public int addEmp(Emp e) throws SQLException {
+		Connection conn = DBConnection.getConn();
+		PreparedStatement stmt = null;
+		String sql = """
+					insert into emp(emp_code, emp_id, emp_pw, emp_name, active, createdate)
+					values(seq_emp.nextval, ?, ?, ?, 1, sysdate);
+				""";
+		stmt = conn.prepareStatement(sql);
+		stmt.setString(1, e.getEmpId());
+		stmt.setString(2, e.getEmpPw());
+		stmt.setString(3, e.getEmpName());
+		int row = stmt.executeUpdate();
+		
+		stmt.close(); conn.close();
+		return row;
+	}
 }

@@ -17,9 +17,8 @@
 			<!-- 
 				1) 리스트
 				2) (비)활성화
-				3) 추가
+				3) 사원추가
 			 -->
-			${empList.size()}
 			<a href="${pageContext.request.contextPath}/emp/addEmp">사원추가</a>
 			<table border="1">
 				<tr>
@@ -30,16 +29,30 @@
 					<td>활성화/비활성화</td>
 				</tr>
 				
-				<c:foreach var="" items="${empList}">
+				<c:forEach var="e" items="${empList}">
 					<tr>
 						<td>${e.empCode}</td>
 						<td>${e.empId}</td>
 						<td>${e.empName}</td>
 						<td>${e.createdate}</td>
-						<td>${e.active == 0?"비활성화":"활성화"}</td>
+						<td>
+							<a href="${pageContext.request.contextPath}/emp/modifyEmpActive?empCode=${e.empCode}&currentActive=${e.active}">
+								${e.active == 0?'비활성화':'활성화'}
+							</a>
+						</td>
 					</tr>
-				</c:foreach>	
+				</c:forEach>	
 			</table>
+			
+			<div>
+				<c:if test="${currentPage>1}">
+					<a href="${pageContext.request.contextPath}/emp/empList?currentPage=${currentPage-1}">[이전]</a>
+				</c:if>
+					${currentPage}
+				<c:if test="${currentPage<lastPage}">
+					<a href="${pageContext.request.contextPath}/emp/empList?currentPage=${currentPage+1}">[다음]</a>
+				</c:if>
+			</div>			
 		</div>
 </body>
 </html>

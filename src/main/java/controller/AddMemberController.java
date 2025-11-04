@@ -11,7 +11,7 @@ import dao.CustomerDao;
 import dto.Customer;
 
 
-@WebServlet("/out/addCustomer")
+@WebServlet("/customer/addCustomer")
 public class AddMemberController extends HttpServlet {
 	// 폼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
