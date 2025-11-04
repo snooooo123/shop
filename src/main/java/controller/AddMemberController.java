@@ -11,7 +11,7 @@ import dao.CustomerDao;
 import dto.Customer;
 
 
-@WebServlet("/out/addMember")
+@WebServlet("/out/addCustomer")
 public class AddMemberController extends HttpServlet {
 	// 폼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -37,7 +37,10 @@ public class AddMemberController extends HttpServlet {
 		cstm.setCustomerPhone(phone);
 
 		CustomerDao cstmDao = new CustomerDao();
-		int row = cstmDao.insertCustomer(cstm);		
+		int row = cstmDao.insertCustomer(cstm);
+		if(row!=0) {
+			System.out.println("가입성공");
+		}
 		
 		response.sendRedirect(request.getContextPath()+"");
 	}
