@@ -12,22 +12,35 @@ import java.util.List;
 import dao.CustomerDao;
 import dto.Customer;
 
-@WebServlet("/customerList")
+@WebServlet("/emp/customerList")
 public class CustomerListController extends HttpServlet {
 	private CustomerDao customerDao;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int currentPage = 1;
-		int beginRow = 0;
-		int rowPerPage = 10;
-		
 		this.customerDao = new CustomerDao();
+		int currentPage = 1;		
+		int rowPerPage = 10;
+		int beginRow = (currentPage-1)*rowPerPage;
+		int lastPage = 0;
+		int cnt; 
 		List<Customer> customerList = null; 
+
 		try {
 			customerList = customerDao.selectCustomerList(beginRow, rowPerPage);
+			cnt = customerDao.countCustomerList();
+			if(cnt/rowPerPage == 0 && cnt%rowPerPage != 0 ) {
+				lastPage = cnt/rowPerPage + 1;
+			} else {
+				lastPage = cnt/rowPerPage;
+			}		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		// System.out.println(customerList); // 디버깅
 		
-		request.getRequestDispatcher("/WEB-INF/veiw/emp/cutomerList.jsp").forward(request, response);
+		request.setAttribute("currentPage", currentPage);
+		request.setAttribute("lastPage", lastPage);
+		request.setAttribute("customerList", customerList);
+		
+		request.getRequestDispatcher("/WEB-INF/view/emp/customerList.jsp").forward(request, response);
 	}
 }

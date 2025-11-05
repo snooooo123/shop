@@ -7,11 +7,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/emp/removeCustomerByEmp")
+@WebServlet("/emp/removeCustomer")
 public class RemoveCustomerByEmpController extends HttpServlet {
 	// 강제탈퇴 화면
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+		request.getRequestDispatcher("/WEB-INF/view/emp/removeCustomer.jsp").forward(request, response);
 	}
 	// 강제탈퇴 액션
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

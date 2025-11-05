@@ -7,9 +7,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Servlet implementation class CustomerlogoutController
- */
 @WebServlet("/customer/customerLogout")
 public class CustomerlogoutController extends HttpServlet {
 
