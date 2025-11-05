@@ -9,19 +9,23 @@
 </head>
 <body>
 	<h1>강제탈퇴</h1>
-	<form method = "post" action="${pageContextPath.request.contextPath}/emp/removeCustomer">
+	<form method = "post" action="${pageContext.request.contextPath}/emp/removeCustomer">
 		<div>
 			회원 ID: <input type="text" name="id" value="${customerId}" readonly>			
 		</div>
 		<div>
-			사유: <textarea rows="5" cols="80" name="why"></textarea>
+			사유: <textarea rows="5" cols="80" name="why" id="why"></textarea>
 		</div>
 		<button type="button" id="btn">확인</button>
 	</form>
 </body>
 	<script>
 		$('#btn').click(()=>{
-			
+			if($('#why').val().length<1){
+				alert('사유를 적으세요');
+				return;
+			}						
+			$('form').submit();
 		});
 	</script>
 </html>

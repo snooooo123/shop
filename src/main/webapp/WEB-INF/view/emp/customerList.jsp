@@ -10,6 +10,9 @@
 <body>
 	<div>
 		<h1>고객관리</h1>
+			<!-- emp menu include -->
+			<c:import url="/WEB-INF/view/inc/empMenu.jsp"></c:import>
+			<hr>
 		<table border=1>
 			<tr>
 				<td>아이디</td>
@@ -26,7 +29,7 @@
 					<td>${c.customerPhone}</td>
 					<td>${c.point}</td>
 					<td><a href="">주문내역</a></td>
-					<td><a href="${pageContextPath.request.contextPath}/emp/removeCustomer?customerId=${c.customerId}">강퇴</a></td>
+					<td><a href="${pageContext.request.contextPath}/emp/removeCustomer?customerId=${c.customerId}">강퇴</a></td>
 				</tr>
 			</c:forEach>
 		</table>

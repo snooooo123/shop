@@ -7,7 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dto.Customer;	
+import dto.Customer;
+import dto.Outid;	
 
 public class CustomerDao {
 	Customer customer = new Customer();
@@ -24,7 +25,7 @@ public class CustomerDao {
 				""";
 		String sqlOutid = """
 					insert into outid(id, memo, createdate)
-					values(?,?,?)
+					values(?,?,sysdate)
 				""";
 		
 	// JDBC Connection의 기본 Commit 설정값 auto commit = true : false 변경 후 transaction 적용
@@ -32,9 +33,12 @@ public class CustomerDao {
 			conn = DBConnection.getConn();
 			conn.setAutoCommit(false); // 개발자가 commit / rollback 직접 구현 필요
 			psmtCustomer = conn.prepareStatement(sqlCustomer);
+			psmtCustomer.setString(1, oi.getId());
 			int row = psmtCustomer.executeUpdate(); // customer 삭제
 			if(row == 1) {
 				psmtOutid = conn.prepareStatement(sqlOutid);
+				psmtOutid.setString(1,oi.getId());
+				psmtOutid.setString(2,oi.getMemo());
 				psmtOutid.executeUpdate(); // outid 입력
 			} else {
 				throw new SQLException();
