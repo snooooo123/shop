@@ -1,0 +1,33 @@
+package controller;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
+
+import dao.CustomerDao;
+import dto.Customer;
+
+@WebServlet("/customerList")
+public class CustomerListController extends HttpServlet {
+	private CustomerDao customerDao;
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int currentPage = 1;
+		int beginRow = 0;
+		int rowPerPage = 10;
+		
+		this.customerDao = new CustomerDao();
+		List<Customer> customerList = null; 
+		try {
+			customerList = customerDao.selectCustomerList(beginRow, rowPerPage);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		request.getRequestDispatcher("/WEB-INF/veiw/emp/cutomerList.jsp").forward(request, response);
+	}
+}
