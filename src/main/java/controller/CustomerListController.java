@@ -17,7 +17,10 @@ public class CustomerListController extends HttpServlet {
 	private CustomerDao customerDao;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.customerDao = new CustomerDao();
-		int currentPage = 1;		
+		int currentPage = 1;
+		if(request.getParameter("currentPage")!=null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}		
 		int rowPerPage = 10;
 		int beginRow = (currentPage-1)*rowPerPage;
 		int lastPage = 0;
@@ -27,11 +30,13 @@ public class CustomerListController extends HttpServlet {
 		try {
 			customerList = customerDao.selectCustomerList(beginRow, rowPerPage);
 			cnt = customerDao.countCustomerList();
-			if(cnt/rowPerPage == 0 && cnt%rowPerPage != 0 ) {
+			if(cnt/rowPerPage == 0 || cnt%rowPerPage != 0 ) {
 				lastPage = cnt/rowPerPage + 1;
 			} else {
 				lastPage = cnt/rowPerPage;
 			}		
+			System.out.println(cnt);
+			System.out.println(lastPage);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

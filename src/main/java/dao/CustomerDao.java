@@ -11,8 +11,6 @@ import dto.Customer;
 import dto.Outid;	
 
 public class CustomerDao {
-	Customer customer = new Customer();
-	
 /*
  *	직원에 의해 강제탈퇴
  */
@@ -80,7 +78,8 @@ public class CustomerDao {
 		
 		List<Customer> list = new ArrayList<>();
 		
-		while(rs.next()) {			
+		while(rs.next()) {		
+			Customer customer = new Customer();
 			customer.setCustomerId(rs.getString("customer_id"));
 			customer.setCustomerName(rs.getString("customer_name"));
 			customer.setCustomerPhone(rs.getString("customer_phone"));

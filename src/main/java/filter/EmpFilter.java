@@ -22,7 +22,7 @@ public class EmpFilter extends HttpFilter implements Filter {
      
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		// 요청 전
-		System.out.println("pre empFilter");
+		//System.out.println("pre empFilter");
 		HttpSession session = ((HttpServletRequest)request).getSession();	
 		if(session.getAttribute("loginEmp") == null) {
 			((HttpServletResponse)response).sendRedirect(((HttpServletRequest)request).getContextPath()+"/out/login");

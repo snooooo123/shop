@@ -12,7 +12,7 @@
         background-color: #fff; 
         color: #333;
         margin: 0;
-        padding: 20px;
+        padding: 0px;
         display: flex;
         justify-content: center; 
     }
@@ -28,21 +28,23 @@
     
     h1 {
         color: #2c3e50;
-        border-bottom: 2px solid #3498db;
-        padding-bottom: 10px;
-        margin-bottom: 30px;
-        font-size: 28px;
+        border-left: 6px solid #3498db;
+        padding-left: 10px;
     }
-    
-    .menu-bar { /* c:import로 가져온 메뉴 바를 위한 스타일 */
-        margin-bottom: 20px;
-        padding-bottom: 10px;
-        border-bottom: 1px solid #eee;
-    }
+   	a {
+	    color: #3498db;
+	    text-decoration: none;
+	    font-weight: 600;
+	}
+	
+	a:hover {
+	    color: #1a73e8;
+	    text-decoration: underline;
+	}
 
     .section-header {
         display: flex;
-        justify-content: space-between; /* "사원추가" 버튼을 오른쪽에 배치 */
+        justify-content: flex-end; /* "사원추가" 버튼을 오른쪽에 배치 */
         align-items: center;
         margin-bottom: 15px;
         padding-top: 10px;
@@ -58,21 +60,22 @@
         transition: background-color 0.3s;
     }
     .section-header a:hover {
-        background-color: #218838;
+        background-color: #1a73e8;
     }
 
     /* 테이블 스타일 */
     .emp-list {
         width: 100%;
         border-collapse: collapse; 
-        margin-bottom: 25px;
+        margin-top: 15px;
         font-size: 14px;
+        box-shadow: 0 0 5px rgba(0,0,0,0.1);
     }
     
     .emp-list th, 
     .emp-list td {
         border: 1px solid #ddd;
-        padding: 12px 15px;
+        padding: 10px 15px;
         text-align: center;
     }
 
@@ -141,14 +144,13 @@
 </head>
 <body>
     <div class="content-wrap">
-        <h1>empList</h1>
+        <h1>사원관리</h1>
         
-        <div class="menu-bar">
-            <c:import url="/WEB-INF/view/inc/empMenu.jsp"></c:import>
-        </div>
+        
+        <c:import url="/WEB-INF/view/inc/empMenu.jsp"></c:import>
+        
         
         <div class="section-header">
-            <h3 style="margin:0; font-weight: normal;">사원 목록</h3>
             <a href="${pageContext.request.contextPath}/emp/addEmp">사원 추가</a>
         </div>
         
