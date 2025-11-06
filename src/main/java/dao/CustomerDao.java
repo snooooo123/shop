@@ -128,6 +128,7 @@ public class CustomerDao {
 		Customer cstm = null;
 		if(rs.next()) {
 			cstm = new Customer();
+			cstm.setCustomerCode(rs.getInt(1));
 			cstm.setCustomerId(rs.getString(2));
 			cstm.setCustomerPw(rs.getString(3));
 			cstm.setCustomerName(rs.getString(4));

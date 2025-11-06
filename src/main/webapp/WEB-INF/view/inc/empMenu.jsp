@@ -6,4 +6,5 @@
 	<a href="${pageContext.request.contextPath}/emp/outidList">[탈퇴ID관리]</a>
 	<a href="${pageContext.request.contextPath}/emp/goodsList">[상품관리]</a>
 	<a href="${pageContext.request.contextPath}/emp/orderList">[주문관리]</a>
+	<a href="${pageContext.request.contextPath}/emp/noticeList">[공지관리]</a>
 </div>

@@ -4,7 +4,7 @@ public class Goods {
 	private int goodsCode;
 	private String goodsName;
 	private int goodsPrice;
-	private String soldOut;
+	private String soldout;
 	private int empCode;
 	private double pointRate;
 	private String createdate;
@@ -27,11 +27,11 @@ public class Goods {
 	public void setGoodsPrice(int goodsPrice) {
 		this.goodsPrice = goodsPrice;
 	}
-	public String getSoldOut() {
-		return soldOut;
+	public String getSoldout() {
+		return soldout;
 	}
-	public void setSoldOut(String soldOut) {
-		this.soldOut = soldOut;
+	public void setSoldout(String soldout) {
+		this.soldout = soldout;
 	}
 	public int getEmpCode() {
 		return empCode;
@@ -60,7 +60,7 @@ public class Goods {
 	@Override
 	public String toString() {
 		return "Goods [goodsCode=" + goodsCode + ", goodsName=" + goodsName + ", goodsPrice=" + goodsPrice
-				+ ", soldOut=" + soldOut + ", empCode=" + empCode + ", pointRate=" + pointRate + ", createdate="
+				+ ", soldOut=" + soldout + ", empCode=" + empCode + ", pointRate=" + pointRate + ", createdate="
 				+ createdate + ", fileSize=" + fileSize + "]";
 	}
 }

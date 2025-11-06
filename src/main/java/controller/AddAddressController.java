@@ -11,6 +11,7 @@ import java.io.IOException;
 
 import dao.AddressDao;
 import dto.Address;
+import dto.Customer;
 
 @WebServlet("/customer/addAddress")
 public class AddAddressController extends HttpServlet {
@@ -21,16 +22,16 @@ public class AddAddressController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		session.
+		int customerCode = ((Customer)(session.getAttribute("loginCustomer"))).getCustomerCode();
 		
 		
 		String[] addressArr = request.getParameterValues("address");
-		String address = String.join(" ", addressArr);
+		String address = String.join(" ", addressArr);	
 		System.out.println("address: " + address);
 		Address addAddress = new Address();
-		addAddress.
-		
-		
+		addAddress.setCustomerCode(customerCode);
+		addAddress.setAddress(address);
+				
 		addressDao = new AddressDao();
 		addressDao.insertAddress(addAddress);
 		

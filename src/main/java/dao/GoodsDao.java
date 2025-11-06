@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import dto.Goods;
 import dto.GoodsImg;
@@ -89,4 +91,61 @@ public class GoodsDao {
 		
 		return result;
 	}
+/* 
+ * 상품 목록
+ */ 
+	public List<Goods> selectGoodsListByEmp(int beginRow, int rowPerPage) throws SQLException{
+		List<Goods> list= new ArrayList<>();;
+		Goods goods;
+		Connection conn = null;
+		PreparedStatement stmt = null; // select		
+		ResultSet rs = null;
+		
+		String sql = """
+					select goods_code, goods_name, goods_price, soldout
+					, emp_code, point_rate, createdate
+					from goods
+					offset ? rows fetch next ? rows only
+				""";
+		conn = DBConnection.getConn();
+		stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, beginRow);
+		stmt.setInt(2, rowPerPage);
+		rs = stmt.executeQuery();
+		while(rs.next()) {
+			goods =  new Goods();
+			goods.setGoodsCode(rs.getInt("goods_code"));
+			goods.setGoodsName(rs.getString("goods_Name"));
+			goods.setGoodsPrice(rs.getInt("goods_price"));
+			goods.setSoldout(rs.getString("soldout"));
+			goods.setEmpCode(rs.getInt("emp_code"));
+			goods.setPointRate(rs.getDouble("point_rate"));
+			goods.setCreatedate(rs.getString("createdate"));
+			list.add(goods);
+		}
+		
+		rs.close(); stmt.close(); conn.close();	
+		return list;
+	}
+/* 
+ * 상품 목록 페이징
+ */ 	
+	public int countGoodsList() throws SQLException {
+		Connection conn = null;
+		PreparedStatement stmt = null; 		
+		ResultSet rs = null;		
+		String sql = """
+					select count(*) from Goods
+				""";
+		conn = DBConnection.getConn();
+		stmt = conn.prepareStatement(sql);
+		rs = stmt.executeQuery();
+		int cnt=0;
+		if(rs.next()) {
+			cnt = rs.getInt(1);
+		}		
+		
+		rs.close(); stmt.close(); conn.close();	
+		return cnt;
+	}	
 }

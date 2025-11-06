@@ -6,13 +6,18 @@
 <meta charset="UTF-8">
 <title>shop</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 </head>
 <body>
 	<h1>addressList</h1>
 	<!-- customer menu -->
 	<c:import url="/WEB-INF/view/inc/customerMenu.jsp"></c:import>
 	<hr>
-	
+	<table>
+		<tr>
+			<th></th>
+		</tr>
+	</table>
 	<div>
 		<a href="${pageContext.request.contextPath}/customer/addAddress">[배송지추가]</a> <!-- 배송지 최대 5개: 6번째 입력시 가장 오래된 데이터 삭제 후 입력(트랜잭션)-->
 	</div>

@@ -3,11 +3,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>shop</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-	<style>
-	/* ====== 고객관리 페이지 스타일 ====== */
+<meta charset="UTF-8">
+<title>shop</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<style>
 	body {
 	    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 	    background-color: #fff;
@@ -40,6 +39,7 @@
 	    margin-top: 15px;
 	    background-color: #fff;
 	    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+	    table-layout: fixed;
 	}
 	
 	table tr:nth-child(odd) {
@@ -52,6 +52,9 @@
 	    text-align: center;
 	    border: 1px solid #ddd;
 	    font-size: 14px;
+        white-space: normal; /* 줄바꿈 허용 */
+	    word-wrap: break-word; /* 긴 단어 줄바꿈 */
+	    word-break: break-word; /* 줄바꿈 보조 */
 	}
 	table th {
         background-color: #ecf0f1; 
@@ -72,15 +75,6 @@
 	a:hover {
 	    color: #1a73e8;
 	    text-decoration: underline;
-	}
-	
-	/* "강퇴" 링크는 빨간색 강조 */
-	td a[href*="removeCustomer"] {
-	    color: #e74c3c;
-	}
-	
-	td a[href*="removeCustomer"]:hover {
-	    color: #c0392b;
 	}
 	
     .pagination {
@@ -107,49 +101,65 @@
         padding: 5px 10px;
         font-weight: bold;
         color: #333;
-    }
-
-	
+    }	
 	</style>
 </head>
 <body>
-	<div>
-		<h1>고객관리</h1>
-			
-			<!-- emp menu include -->
-			<c:import url="/WEB-INF/view/inc/empMenu.jsp"></c:import>
-			
-		<table border=1>
+<div>
+	<h1>주문관리</h1>
+	<c:import url="/WEB-INF/view/inc/empMenu.jsp"></c:import>
+	<hr>	
+	<table border="1">
+	  <colgroup>
+	    <col style="width: 5%;">  
+	    <col style="width: 10%;"> 
+	    <col style="width: 10%;"> 
+	    <col style="width: 10%;"> 
+	    <col style="width: 20%;">  
+	    <col style="width: 12%;"> 
+	    <col style="width: 8%;"> 
+	    <col style="width: 10%;"> 
+	  </colgroup>
+		<tr>
+			<th>orderCode</th>
+			<th>goods</th>
+			<th>Price</th>
+			<th>customer</th>			
+			<th>address</th>
+			<th>customerPhone</th>
+			<th>orderState</th>
+			<th>createdate</th>
+		</tr>
+		<c:forEach var="o" items="${orderList}">
 			<tr>
-				<th>아이디</th>
-				<th>이름</th>
-				<th>연락처</th>
-				<th>포인트</th>
-				<th>주문내역</th>
-				<th>강퇴</th>
+				<td>${o.orderCode}</td>
+				<td>
+					${o.goodsCode}. ${o.goodsName}
+				</td>
+				<td>
+					${o.goodsPrice} X ${o.orderQuantity}<br>
+					= ${o.orderPrice}
+				</td>				
+				<td>
+					${o.customerCode}#${o.customerName}					
+				</td>
+				<td>${o.address}</td>
+				<td>${o.customerPhone}</td>
+				<td>${o.orderState}</td>
+				<td>${o.createdate}</td>																			
 			</tr>
-			<c:forEach var="c" items="${customerList}">
-				<tr>
-					<td>${c.customerId}</td>
-					<td>${c.customerName}</td>
-					<td>${c.customerPhone}</td>
-					<td>${c.point}</td>
-					<td><a href="">주문내역</a></td>
-					<td><a href="${pageContext.request.contextPath}/emp/removeCustomer?customerId=${c.customerId}">강퇴</a></td>
-				</tr>
-			</c:forEach>
-		</table>
-	</div>
-<!-- 		<div>${customerList}</div>  -->
-		<div class="pagination">
-			<c:if test="${currentPage>1}">
-				<a href="${pageContext.request.contextPath}/emp/customerList?currentPage=${currentPage-1}">이전</a>
-			</c:if>
-				<span class="current-page">${currentPage}</span>
-			<c:if test="${currentPage<lastPage}">
-				<a href="${pageContext.request.contextPath}/emp/customerList?currentPage=${currentPage+1}">다음</a>
-			</c:if>
-		</div>		
-	
+		</c:forEach>				
+	</table>
+</div>
+	<div class="pagination">
+		<c:if test="${currentPage>1}">
+			<a href="${pageContext.request.contextPath}/emp/orderList?currentPage=${currentPage-1}">이전</a>
+		</c:if>
+			<span class="current-page">${currentPage}</span>
+		<c:if test="${currentPage<lastPage}">
+			<a href="${pageContext.request.contextPath}/emp/orderList?currentPage=${currentPage+1}">다음</a>
+		</c:if>
+	</div>		
+		
 </body>
 </html>

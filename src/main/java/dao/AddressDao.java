@@ -21,21 +21,23 @@ public class AddressDao {
 					delete from address
 					where address_code = (select min(address_code) from address
 					where customer_code = ?)
-			""";
+				""";
 		String sql3="""
-					insert into address(address_code, customer_code, address, createadte)
+					insert into address(address_code, customer_code, address, createdate)
 					values(seq_address.nextval,?,?,sysdate)
 				""";
 		try {
 			conn = DBConnection.getConn();
 			conn.setAutoCommit(false);
 			stmt1 = conn.prepareStatement(sql1);
+			stmt1.setInt(1, address.getCustomerCode());
 			rs1 = stmt1.executeQuery();
+			
 			rs1.next();
 			int cnt = rs1.getInt(1);
 			if(cnt>4) { // 5개면 가장오래된 주소 삭제 후 입력
 				stmt2 = conn.prepareStatement(sql2);
-				stmt2.setInt(1, cnt);
+				stmt2.setInt(1, address.getCustomerCode());
 				stmt2.executeUpdate();
 			}
 			
@@ -43,7 +45,7 @@ public class AddressDao {
 			stmt3.setInt(1, address.getCustomerCode());
 			stmt3.setString(2, address.getAddress());
 			int row = stmt3.executeUpdate();
-			
+			conn.commit();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally { // finally 자원해지 null 유무 확인 후 해지
