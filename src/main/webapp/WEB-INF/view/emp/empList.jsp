@@ -19,9 +19,9 @@
 
     .content-wrap {
         width: 100%;
-        max-width: 900px; 
+        max-width: 1000px; 
         background-color: #fff;
-        padding: 30px;
+        padding: 20px;
         border-radius: 8px;
         
     }
