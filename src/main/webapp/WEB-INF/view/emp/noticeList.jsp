@@ -27,7 +27,7 @@
 		<c:forEach var="n" items="${list}">
 			<tr>
 				<td>${n.noticeCode}</td>
-				<td><a href="">${n.noticeTitle}</a></td>
+				<td><a href="${pageContext.request.contextPath}/emp/noticeOne?noticeCode=${n.noticeCode}">${n.noticeTitle}</a></td>
 				<td>${n.empId}</td>
 				<td>${n.createdate}</td>
 			</tr>

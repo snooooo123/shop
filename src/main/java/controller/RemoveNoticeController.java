@@ -7,35 +7,26 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Servlet implementation class RemoveNoticeController
- */
-@WebServlet("/RemoveNoticeController")
+import dao.NoticeDao;
+
+@WebServlet("/emp/removeNotice")
 public class RemoveNoticeController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public RemoveNoticeController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	private NoticeDao noticeDao;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+		//System.out.println(request.getParameter("noticeCode")); // form 에 내용이 없으면 안넘어온다 a 써서 넘기자
+		
+		int noticeCode = Integer.parseInt(request.getParameter("noticeCode"));
+		
+		
+		noticeDao = new NoticeDao();
+		int row = noticeDao.deleteNotice(noticeCode);
+		if(row != 1) {
+			request.getRequestDispatcher("/WEB-INF/view/emp/noticeOne.jsp").forward(request, response);
+		} else {
+			response.sendRedirect(request.getContextPath()+"/emp/noticeList");
+		}
+		
 	}
 
 }

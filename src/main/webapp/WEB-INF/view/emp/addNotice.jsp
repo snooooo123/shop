@@ -24,8 +24,17 @@
 					<td><textarea rows="15" cols="80" name="noticeContent"></textarea></td>
 				</tr>
 			</table>
-		
+		<button type="button" id="btn">등록</button>
 		</form>		
 	</div>
 </body>
+	<script>
+	$('#btn').click(()=>{
+		
+		
+		$('form').submit();
+	})	
+	
+	
+	</script>
 </html>

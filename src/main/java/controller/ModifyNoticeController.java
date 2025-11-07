@@ -6,36 +6,29 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
-/**
- * Servlet implementation class ModifyNoticeController
- */
-@WebServlet("/ModifyNoticeController")
+import dao.NoticeDao;
+
+@WebServlet("/emp/modifyNotice")
 public class ModifyNoticeController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ModifyNoticeController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	private NoticeDao noticeDao;
+	// 폼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		int noticeCode = Integer.parseInt(request.getParameter("noticeCode"));
+		
+		Map<String, Object> m = new HashMap<>();
+		noticeDao = new NoticeDao();
+		m = noticeDao.selectNoticeOne(noticeCode);
+		
+		request.setAttribute("notice", m);
+		request.getRequestDispatcher("/WEB-INF/view/emp/modifyNotice.jsp").forward(request, response);
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	// 액션
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+
+
 	}
 
 }
