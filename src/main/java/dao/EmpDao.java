@@ -26,6 +26,7 @@ public class EmpDao {
 		Emp emp = null;
 		if(rs.next()) {
 			emp = new Emp();
+			emp.setEmpCode(rs.getInt(1));
 			emp.setEmpId(rs.getString(2));
 			emp.setEmpPw(rs.getString(3));
 			emp.setEmpName(rs.getString(4));

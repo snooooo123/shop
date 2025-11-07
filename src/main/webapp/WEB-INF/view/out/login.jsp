@@ -144,10 +144,10 @@
 			<div class="login-main-area">
 				<div class="input-fields-group">
 						<label for="id">아이디</label>
-						<input type="text" name="id" id="id">
+						<input type="text" name="id" id="id" value="emp1">
 
 						<label for="pw">비밀번호</label>
-						<input type="password" name="pw" id="pw">
+						<input type="password" name="pw" id="pw" value="1234">
 				</div>
 				<div class="buttons-group">
 					<button type="button" id="btn">로그인</button>
@@ -155,8 +155,8 @@
 				</div>
 			</div>	
 			<div class="radio-selection-area">
-				<input type="radio" name="customerOrEmpSel" class="customerOrEmpSel" value="customer" checked>customer
-				<input type="radio" name="customerOrEmpSel" class="customerOrEmpSel" value="emp">emp
+				<input type="radio" name="customerOrEmpSel" class="customerOrEmpSel" value="customer" >customer
+				<input type="radio" name="customerOrEmpSel" class="customerOrEmpSel" value="emp" checked>emp
 			</div>
 						
 		</form>		
@@ -164,22 +164,18 @@
 </body>
 	<script>
 	$(document).ready(function() {
-	    
+		
 	    // ⭐ [수정된 jQuery 로직] ⭐
 	    $('input[name="customerOrEmpSel"]').on('change', function() {
-	        
+	    	
 	        // 1. name 속성을 이용해 '현재 선택된' 라디오 버튼의 value를 가져옵니다.
 	        //    (change 이벤트가 발생한 요소의 value는 이미 this.value로도 접근 가능)
 	        const selectedValue = $('input[name="customerOrEmpSel"]:checked').val();
 	        
 	        // 2. 값을 'emp'와 비교합니다.
-	        if (selectedValue === 'emp') {
-	            // 'emp'가 선택된 경우: 파란색으로 변경
-	            $('#btn').css('background-color', '#007bff');
-	        } else {
-	            // 'customer'가 선택된 경우: 원래의 빨간색으로 복구
-	            $('#btn').css('background-color', '#ff3333');
-	        }
+	        $('#btn').css('background-color',
+	                selectedValue === 'emp' ? '#007bff' : '#ff3333'
+	            );
 	    });
 		$('#btn').click(()=>{
 			if($('#id').val() == ''){
@@ -192,6 +188,8 @@
 			} 
 			$('form').submit();											
 		});
+		
+		$('input[name="customerOrEmpSel"]').trigger('change');
 	});
 	</script>
 </html>

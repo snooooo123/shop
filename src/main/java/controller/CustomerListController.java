@@ -35,8 +35,8 @@ public class CustomerListController extends HttpServlet {
 			} else {
 				lastPage = cnt/rowPerPage;
 			}		
-			System.out.println(cnt);
-			System.out.println(lastPage);
+			//System.out.println(cnt);
+			//System.out.println(lastPage);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

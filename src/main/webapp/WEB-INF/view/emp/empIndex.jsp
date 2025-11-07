@@ -49,13 +49,15 @@
 	</style>
 </head>
 <body>
-	<h1>empIndex</h1>
-		<!-- emp menu include -->
-		<c:import url="/WEB-INF/view/inc/empMenu.jsp"></c:import>
-		<hr>
 	<div>
-		${loginEmp.empName}님 반갑습니다.
-		<a href="${pageContext.request.contextPath}/emp/emplogout"></a>
+		<h1>empIndex</h1>
+			<!-- emp menu include -->
+			<c:import url="/WEB-INF/view/inc/empMenu.jsp"></c:import>
+			<hr>
+		<div>
+			${loginEmp.empName}님 반갑습니다.
+			<a href="${pageContext.request.contextPath}/emp/emplogout"></a>
+		</div>
 	</div>
 </body>
 </html>
