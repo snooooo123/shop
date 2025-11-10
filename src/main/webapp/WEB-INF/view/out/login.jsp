@@ -144,7 +144,7 @@
 			<div class="login-main-area">
 				<div class="input-fields-group">
 						<label for="id">아이디</label>
-						<input type="text" name="id" id="id" value="emp1">
+						<input type="text" name="id" id="id" value="customer1">
 
 						<label for="pw">비밀번호</label>
 						<input type="password" name="pw" id="pw" value="1234">
@@ -155,8 +155,8 @@
 				</div>
 			</div>	
 			<div class="radio-selection-area">
-				<input type="radio" name="customerOrEmpSel" class="customerOrEmpSel" value="customer" >customer
-				<input type="radio" name="customerOrEmpSel" class="customerOrEmpSel" value="emp" checked>emp
+				<input type="radio" name="customerOrEmpSel" class="customerOrEmpSel" value="customer" checked>customer
+				<input type="radio" name="customerOrEmpSel" class="customerOrEmpSel" value="emp">emp
 			</div>
 						
 		</form>		

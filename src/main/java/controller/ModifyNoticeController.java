@@ -27,7 +27,7 @@ public class ModifyNoticeController extends HttpServlet {
 	}
 	// 액션
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 
 	}
 

@@ -5,12 +5,35 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import dto.Goods;
 import dto.GoodsImg;
 
 public class GoodsDao {
+	public List<Map<String, Object>> selectBestGoodsList(int beginRow, int rowPerPage) {
+	
+		String sql = """
+					select
+						gi.filename
+						, g.goods_code
+						, g.goods_name
+						, g.goods_price
+					from
+					goods g inner join goods_img gi
+					on g.goods_code = gi.goods_code
+					    inner join (select goods_code, count(*) from orders
+					                    group by goods_code
+					                    order by count(*) desc
+					                    offset 0 rows fetch next 5 rows only) t
+					on g.goods.code = t.goods_code;
+				""";
+		
+		return list;
+		
+	}
 	// 상품등록 + 이미지 등록
 	// 반환값은 실패시 false 
 	public boolean insertGoodsAndImg(Goods g, GoodsImg gi) {
@@ -91,8 +114,56 @@ public class GoodsDao {
 		
 		return result;
 	}
+	public List<Map<String, Object>> selectGoodsList(int beginRow, int rowPerPage) {
+		List<Map<String, Object>> list= new ArrayList<>();;
+		Goods goods;
+		Connection conn = null;
+		PreparedStatement stmt = null; // select		
+		ResultSet rs = null;
+		
+		String sql = """
+					select
+						gi.filename
+						g.goods_code
+						, g.goods_name
+						, g.goods_price
+					where g.soldout is null
+					from goods g inner join goods_img gi
+					on g.goods_code = gi.goods_code
+					order by g.goods_code desc
+					offset ? rows fetch next ? rows only									
+				""";
+		try {
+			conn = DBConnection.getConn();
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, beginRow);
+			stmt.setInt(2, rowPerPage);
+			rs = stmt.executeQuery();
+			while(rs.next()) {
+				Map<String, Object> m = new HashMap<>();
+				m.put("filename",rs.getString("filename"));
+				m.put("goods_code",rs.getInt("goods_code"));
+				m.put("goods_name",rs.getString("goods_name"));
+				m.put("goods_price",rs.getInt("goods_price"));
+
+				list.add(m);
+			}
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		} finally {
+			try {
+			if(rs != null) rs.close();
+			if(stmt != null) stmt.close();
+			if(conn != null) conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return list;
+	}
 /* 
  * 상품 목록
+ * emp/goodsList 에서는 10개  /  customerIndex 에서는 20개
  */ 
 	public List<Goods> selectGoodsListByEmp(int beginRow, int rowPerPage) throws SQLException{
 		List<Goods> list= new ArrayList<>();;

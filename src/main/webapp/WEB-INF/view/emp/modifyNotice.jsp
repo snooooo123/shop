@@ -14,23 +14,23 @@
 		<hr>
 		<table>
 			<tr>
-				<th></th>
-				<td></td>
+				<th>noticeCode</th>
+				<td>${notice.noticeCode}</td>
 			</tr>
 			<tr>
-				<th></th>
-				<td></td>
+				<th>noticeTitle</th>
+				<td>${notice.noticeTitle}</td>
 			</tr>
 			<tr>
-				<th></th>
-				<td></td>
+				<th>noticeContent</th>
+				<td>${notice.noticeContent}</td>
 			</tr>
 			<tr>
-				<th></th>
-				<td></td>
+				<th>empId</th>
+				<td>${notice.empId}</td>
 			</tr>
 		</table>
-		
+		<button type="button">수정</button>
 	</div>
 </body>
 </html>
