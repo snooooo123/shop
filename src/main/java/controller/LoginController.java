@@ -38,8 +38,8 @@ public class LoginController extends HttpServlet {
 				if(loginCustomer != null) {
 					HttpSession session = request.getSession();
 					session.setAttribute("loginCustomer", loginCustomer);
-					System.out.println("로그인 성공!");
-					request.getRequestDispatcher("/WEB-INF/view/customer/customerIndex.jsp").forward(request, response);
+					//System.out.println("로그인 성공!");
+					response.sendRedirect(request.getContextPath()+"/customer/customerIndex");
 				} else {
 					System.out.println("로그인 실패!");
 					request.getRequestDispatcher("/WEB-INF/view/out/login.jsp").forward(request, response);
