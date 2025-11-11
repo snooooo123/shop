@@ -16,7 +16,7 @@ public class GoodsDao {
 /*
  *  상품 상세 근데 사진을 곁들인
  */
-	public Map<String, Object> goodsOne(int goodsCode) {
+	public Map<String, Object> selectGoodsOne(int goodsCode) {
 		Connection conn = null;
 		PreparedStatement stmt = null;		
 		ResultSet rs = null;
@@ -28,7 +28,7 @@ public class GoodsDao {
 						, g.goods_price
 						, g.point_rate
 						, g.emp_code
-						, g.soldout
+						, nvl(g.soldout,' ') soldout
 						, g.createdate
 					FROM goods g INNER JOIN goods_img gi
 					ON g.goods_code = gi.goods_code
@@ -46,7 +46,7 @@ public class GoodsDao {
 				m.put("goodsCode", rs.getInt(2));
 				m.put("goodsName", rs.getString(3));
 				m.put("goodsPrice", rs.getInt(4));
-				m.put("pointRate", rs.getInt(5));
+				m.put("pointRate", rs.getDouble(5));
 				m.put("empCcode", rs.getInt(6));
 				m.put("soldout", rs.getString(7));
 				m.put("createdate", rs.getString(8));
@@ -106,7 +106,7 @@ public class GoodsDao {
 				m.put("goodsPrice",rs.getInt("goods_price"));
 				list.add(m);
 			}
-			//System.out.println(list);
+			//System.out.println(goodsCode);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		} finally {
