@@ -14,21 +14,21 @@ import com.google.gson.Gson;
 
 import dao.StatsDao;
 
-@WebServlet("/emp/totalPrice")
-public class TotalPriceRestController extends HttpServlet {
+@WebServlet("/emp/order")
+public class OrderRestController extends HttpServlet {
 	private StatsDao statsDao;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String fromYM = request.getParameter("fromYM");
 		String toYM = request.getParameter("toYM");
-		
+				
 		response.setContentType("application/json;charset=UTF-8");
 		statsDao = new StatsDao();
-		List<Map<String, Object>> priceList = statsDao.selectOrderTotalPriceByYM(fromYM, toYM);
-		
+		List<Map<String, Object>> orderList = statsDao.selectOrderCntByYM(fromYM, toYM);	
+			
 		Gson gson = new Gson();
-		String jsonResult = gson.toJson(priceList);
+		String jsonRsult = gson.toJson(orderList);
 		PrintWriter out = response.getWriter();
-		out.print(jsonResult);
+		out.print(jsonRsult);
 		out.flush();
 	}
 }

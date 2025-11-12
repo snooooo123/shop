@@ -15,7 +15,7 @@ import com.google.gson.Gson;
 
 import dao.StatsDao;
 
-@WebServlet("/totalOrder")
+@WebServlet("/emp/totalOrder")
 public class TotalOrderRestController extends HttpServlet {
 	private StatsDao statsDao;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -114,7 +114,7 @@
 				<tr>
 					<th>수량</th>
 					<td>
-						<select>
+						<select name="cart">
 							<c:forEach var="i" begin="1" end="10">
 								<option value="${i}">${i}</option>
 							</c:forEach>

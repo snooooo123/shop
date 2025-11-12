@@ -8,23 +8,23 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
-import dao.AddressDao;
+import dao.CartDao;
 import dto.Customer;
 
-@WebServlet("/customer/addressList")
-public class AddressListController extends HttpServlet {
-	AddressDao addressDao;
+@WebServlet("/customer/cartList")
+public class CartListController extends HttpServlet {
+	CartDao cartDao;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		Customer customer = (Customer)session.getAttribute("logtinCustomer");
+		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
 		
-		addressDao = new AddressDao();
+		cartDao = new CartDao();
+		List<Map<String, Object>> list = cartDao.selectCartList(loginCustomer.getCustomerCode());
 		
-		
-		
-		
-		
-		request.getRequestDispatcher("/WEB-INF/view/customer/addressList.jsp").forward(request, response);		
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("/WEB-INF/view/customer/cartList.jsp").forward(request, response);
 	}
 }

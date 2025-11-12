@@ -4,10 +4,20 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Map;
 
 import dto.Address;
 
 public class AddressDao {
+	public Map<String, Object> selectAddress(int customerCode) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		
+		return null;
+	}		
+	
 	public void insertAddress(Address address) {
 		Connection conn = null;
 		PreparedStatement stmt1 = null;
