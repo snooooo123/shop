@@ -76,10 +76,19 @@
 			</div>
 		</div>
 		<hr>
-		<table>
+		<table border="1">
 			<tr>
-				<th></th>
+				<th>No.</th>
+				<th>address</th>
+				<th>삭제</th>				
 			</tr>
+			<c:forEach var="i" begin="1" end="${list.size()}">
+				<tr>
+					<td>${i}</td>
+					<td>${list[i-1].address}</td>
+					<td><a href="${pageContext.request.contextPath}/customer/removeAddress?customerCode=${customerCode}&addressCode=${list[i-1].addressCode}">삭제</a></td>
+				</tr>			
+			</c:forEach>
 		</table>
 		<div>
 			<a href="${pageContext.request.contextPath}/customer/addAddress">[배송지추가]</a> <!-- 배송지 최대 5개: 6번째 입력시 가장 오래된 데이터 삭제 후 입력(트랜잭션)-->

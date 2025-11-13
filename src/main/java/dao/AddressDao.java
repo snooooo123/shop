@@ -5,13 +5,45 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import dto.Address;
 
 public class AddressDao {
-	public List<Address> selectAddressLsit(int customerCode) {
+	public int deleteAddressByCustomer(int customerCode) {
+		Connection conn = null;
+		PreparedStatement stmt = null;		
+		String sql = """
+					DELETE 
+				""";
+		
+		int row=0;
+		try {
+			conn = DBConnection.getConn();
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, customerCode);
+			
+			
+							
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+			
+				if(stmt != null) stmt.close();
+				if(conn != null) conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return 0;
+	}
+	public List<Address> selectAddressList(int customerCode) {
 		List<Address> list = new ArrayList<>();
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -46,16 +78,7 @@ public class AddressDao {
 		}
 		return list;
 	}
-	
-	public Map<String, Object> selectAddress(int customerCode) {
-		Connection conn = null;
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
-		
-		
-		return null;
-	}		
-	
+
 	public void insertAddress(Address address) {
 		Connection conn = null;
 		PreparedStatement stmt1 = null;

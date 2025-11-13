@@ -15,24 +15,27 @@ import java.util.Map;
 import dao.AddressDao;
 import dao.CartDao;
 import dao.GoodsDao;
+import dao.OrdersDao;
 import dto.Address;
 import dto.Customer;
+import dto.Orders;
 
 @WebServlet("/customer/addOrders")
 public class AddOrderServlet extends HttpServlet {
 	GoodsDao goodsDao;
 	CartDao cartDao;
 	AddressDao addressDao;
+	OrdersDao ordersDao;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//cartList action
 		String[] cartCodeList = request.getParameterValues("cartCodeList");
-		System.out.println("cartCodeList: " + cartCodeList);
+//		System.out.println("cartCodeList: " + cartCodeList);
 		
 		//goodsOne action
 		String goodsCode = request.getParameter("goodsCode");
 		String cartQuantity = request.getParameter("cartQuantity");
-		System.out.println("goodsCode: " + goodsCode);
-		System.out.println("cartQuantity: " + cartQuantity);
+//		System.out.println("goodsCode: " + goodsCode);
+//		System.out.println("cartQuantity: " + cartQuantity);
 				
 		List<Map<String, Object>> list = new ArrayList<>();
 		
@@ -69,14 +72,41 @@ public class AddOrderServlet extends HttpServlet {
 		HttpSession session = request.getSession(); 
 		Customer loginCustomer = (Customer)(session.getAttribute("loginCustomer"));
 		addressDao = new AddressDao();
-		List<Address> addressList = addressDao.selectAddressLsit(loginCustomer.getCustomerCode());
+		List<Address> addressList = addressDao.selectAddressList(loginCustomer.getCustomerCode());
 		request.setAttribute("addressList", addressList);
 		
 		request.getRequestDispatcher("/WEB-INF/view/customer/addOrders.jsp").forward(request, response);
 	}
 	// addOrders.jsp action
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// insert orders
-		// insert point_history : 포인트 사용 -> 차감 & 적립 / 미사용 -> 적립
+		HttpSession session = request.getSession();
+		Customer loginCustomer = (Customer)(session.getAttribute("loginCustomer"));
+		String addressCode = request.getParameter("addressCode");
+		String orderPrice = request.getParameter("orderPrice");
+		
+//		System.out.println(addressCode);
+//		System.out.println(orderPrice);
+		
+		String[] goodsCodeList = request.getParameterValues("goodsCode");
+		String[] orderQuantityList = request.getParameterValues("orderQuantity");
+		String[] goodsPriceList = request.getParameterValues("goodsPrice");
+		
+//		System.out.println(goodsCodeList.length);
+//		System.out.println(orderQuantityList.length);
+//		System.out.println(goodsPriceList.length);
+		
+		ordersDao = new OrdersDao();
+		
+		for(int i=0; i<goodsCodeList.length; i=i+1) {
+			Orders o = new Orders();
+			o.setCustomerCode(loginCustomer.getCustomerCode());
+			o.setAddressCode(Integer.parseInt(addressCode));
+			o.setGoodsCode(Integer.parseInt(goodsCodeList[i]));
+			o.setOrderQuantity(Integer.parseInt(orderQuantityList[i]));
+			o.setOrderPrice(Integer.parseInt(goodsPriceList[i]) * Integer.parseInt(orderQuantityList[i]));
+			ordersDao.insertOrders(o);
+		}
+		
+		
 	}
 }
