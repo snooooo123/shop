@@ -10,6 +10,13 @@ import java.util.List;
 import java.util.Map;
 
 public class OrdersDao {
+	
+	// goodsOne -> 주문완료
+	 	
+	// cartList -> 주문완료 	
+	 
+	// 
+	
 	public List<Map<String, Object>> selectOrderList(int beginRow, int rowPerPage) throws Exception {
 		List<Map<String,Object>> list = new ArrayList<>();
 		Connection conn = DBConnection.getConn();

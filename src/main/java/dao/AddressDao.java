@@ -4,11 +4,49 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import dto.Address;
 
 public class AddressDao {
+	public List<Address> selectAddressLsit(int customerCode) {
+		List<Address> list = new ArrayList<>();
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String sql = """
+					Select address_code, address
+					FROM address WHERE customer_code = ?
+				""";
+		try {
+			conn = DBConnection.getConn();
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, customerCode);
+			rs = stmt.executeQuery();
+			
+			while(rs.next()) {
+				Address address = new Address();
+				address.setAddress(rs.getString(2));
+				address.setAddressCode(rs.getInt(1));
+				list.add(address);				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(stmt != null) stmt.close();
+				if(conn != null) conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+	
 	public Map<String, Object> selectAddress(int customerCode) {
 		Connection conn = null;
 		PreparedStatement stmt = null;
