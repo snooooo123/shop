@@ -27,7 +27,7 @@ public class AddAddressController extends HttpServlet {
 		
 		String[] addressArr = request.getParameterValues("address");
 		String address = String.join(" ", addressArr);	
-		System.out.println("address: " + address);
+//		System.out.println("address: " + address);
 		Address addAddress = new Address();
 		addAddress.setCustomerCode(customerCode);
 		addAddress.setAddress(address);

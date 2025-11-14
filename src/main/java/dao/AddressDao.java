@@ -12,36 +12,33 @@ import java.util.Map;
 import dto.Address;
 
 public class AddressDao {
-	public int deleteAddressByCustomer(int customerCode) {
+	public int deleteAddressByCustomer(int customerCode, int addressCode) {
 		Connection conn = null;
 		PreparedStatement stmt = null;		
 		String sql = """
-					DELETE 
-				""";
-		
+					DELETE from address
+					WHERE customer_code = ?
+					AND address_code = ?
+				""";		
 		int row=0;
 		try {
 			conn = DBConnection.getConn();
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, customerCode);
-			
-			
-							
-			
-			
+			stmt.setInt(2, addressCode);
+			row = stmt.executeUpdate();
+															
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			try {
-			
+			try {			
 				if(stmt != null) stmt.close();
 				if(conn != null) conn.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
-		
-		return 0;
+		}		
+		return row;
 	}
 	public List<Address> selectAddressList(int customerCode) {
 		List<Address> list = new ArrayList<>();
@@ -51,6 +48,7 @@ public class AddressDao {
 		String sql = """
 					Select address_code, address
 					FROM address WHERE customer_code = ?
+					ORDER BY address_code
 				""";
 		try {
 			conn = DBConnection.getConn();

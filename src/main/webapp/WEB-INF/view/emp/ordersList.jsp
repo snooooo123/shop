@@ -146,8 +146,7 @@
 				<td>${o.address}</td>
 				<td>${o.customerPhone}</td>
 				<td>${o.orderState}</td>
-				<td>${o.createdate}</td>		
-				<td><a href=""></a></td>
+				<td>${o.createdate}</td>						
 			</tr>
 		</c:forEach>				
 	</table>

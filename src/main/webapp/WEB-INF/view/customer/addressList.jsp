@@ -27,6 +27,7 @@
 	        border-left: 6px solid #ff3333;
 	        padding-left: 10px;
 	    }
+	
     	.header-container {
 		    display: flex; /* Flexbox 활성화 */
 		    justify-content: space-between; /* 양쪽 끝으로 요소 분리 */
@@ -61,6 +62,51 @@
 		    color: #1a73e8;
 		    text-decoration: underline;
 		}
+		table {
+		    width: 100%;
+		    border-collapse: collapse;
+		    margin-top: 10px;
+		    background-color: #ffffff;
+		    border-radius: 8px;
+		    overflow: hidden;
+		    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+		    font-size: 15px;
+		}
+		
+		table th {
+		    background-color: #3498db;
+		    color: white;
+		    padding: 12px;
+		    text-align: center;
+		    font-weight: 600;
+		}
+		
+		table td {
+		    padding: 10px;
+		    border-bottom: 1px solid #eaeaea;
+		    text-align: center;
+		}
+		
+		/* 홀수, 짝수 줄 색상 */
+		table tr:nth-child(even) {
+		    background-color: #f8faff;
+		}
+		
+		/* hover 시 강조 */
+		table tr:hover {
+		    background-color: #e7f2ff;
+		    transition: 0.2s;
+		}
+		
+		/* 삭제 링크 색상 */
+		table a {
+		    color: #e74c3c;
+		    font-weight: 600;
+		}
+		table a:hover {
+		    color: #c0392b;
+		    text-decoration: underline;
+		}
    	</style>
 </head>
 <body>
@@ -72,15 +118,17 @@
 			<div class="customer-info">
 				${loginCustomer.customerName}님 반갑습니다.
 				(point : ${loginCustomer.point})
-				<a href="${pageContext.request.contextPath}/customer/customerlogout">로그아웃</a>
+				<a href="${pageContext.request.contextPath}/out/logout">로그아웃</a>
 			</div>
 		</div>
+				
+		<h2>배송지 목록</h2>
 		<hr>
 		<table border="1">
 			<tr>
 				<th>No.</th>
 				<th>address</th>
-				<th>삭제</th>				
+				<th>&nbsp;</th>				
 			</tr>
 			<c:forEach var="i" begin="1" end="${list.size()}">
 				<tr>

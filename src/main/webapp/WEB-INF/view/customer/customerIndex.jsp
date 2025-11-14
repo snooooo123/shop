@@ -215,7 +215,7 @@
 		<div class="customer-info">
 			${loginCustomer.customerName}님 반갑습니다.
 			(point : ${loginCustomer.point})
-			<a href="${pageContext.request.contextPath}/customer/customerlogout">로그아웃</a>
+			<a href="${pageContext.request.contextPath}/out/logout">로그아웃</a>
 		</div>
 	</div>		
 	<h2>베스트 상품목록</h2>

@@ -83,8 +83,15 @@
 	<div>
 		<h1>goodsOne</h1>
 		<!-- customer menu -->
-		<c:import url="/WEB-INF/view/inc/customerMenu.jsp"></c:import>
-		<hr>
+		<div class="header-container">
+			<!-- customer menu -->
+			<c:import url="/WEB-INF/view/inc/customerMenu.jsp"></c:import>
+			<div class="customer-info">
+				${loginCustomer.customerName}님 반갑습니다.
+				(point : ${loginCustomer.point})
+				<a href="${pageContext.request.contextPath}/out/logout">로그아웃</a>
+			</div>
+		</div>
 
 		<form id="myform">
 			<input type="hidden" id="contextPath" value="${pageContext.request.contextPath}">
