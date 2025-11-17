@@ -62,6 +62,27 @@
 		    color: #1a73e8;
 		    text-decoration: underline;
 		}
+		.addbtn {
+	        display: flex;
+	        justify-content: flex-begin; 
+	        align-items: center;
+	        margin-bottom: 15px;
+	        padding-top: 10px;
+	    }
+	
+	    .addbtn a {
+	        color: #fff;
+	        background-color: #e74c3c; 
+	        padding: 12px 20px;
+	        text-decoration: none;
+	        border-radius: 6px;
+	        font-size: 16px;
+	        transition: background-color 0.3s;
+	    }
+	    .addbtn a:hover {
+		    background-color: #c0392b;   /* hover 시 어두운 빨강 */
+		    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+		}   
 		table {
 		    width: 100%;
 		    border-collapse: collapse;
@@ -138,8 +159,8 @@
 				</tr>			
 			</c:forEach>
 		</table>
-		<div>
-			<a href="${pageContext.request.contextPath}/customer/addAddress">[배송지추가]</a> <!-- 배송지 최대 5개: 6번째 입력시 가장 오래된 데이터 삭제 후 입력(트랜잭션)-->
+		<div class="addbtn">
+			<a href="${pageContext.request.contextPath}/customer/addAddress">배송지추가</a> <!-- 배송지 최대 5개: 6번째 입력시 가장 오래된 데이터 삭제 후 입력(트랜잭션)-->
 		</div>
 	</div>
 </body>

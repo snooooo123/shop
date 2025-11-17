@@ -112,15 +112,15 @@ public class CartDao {
 		Connection conn = null;
 		PreparedStatement stmt = null;				
 		String sql = """
-					INSERT INTO cart()
-					VALUES (?,?,?,?,?,?)
+					INSERT INTO cart(goods_code, customer_code, cart_quantity, createdate, cart_code)
+					VALUES (?,?,?,sysdate,seq_cart.nextval)
 				""";
 		try {
 			conn = DBConnection.getConn();
 			stmt = conn.prepareStatement(sql);
-			
-			
-			
+			stmt.setInt(1, c.getGoodsCode());
+			stmt.setInt(2, c.getCustomerCode());
+			stmt.setInt(3, c.getCartQuantity());								
 			row = stmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

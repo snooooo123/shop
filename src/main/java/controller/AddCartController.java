@@ -22,13 +22,18 @@ public class AddCartController extends HttpServlet {
 				
 		String goodsCode = request.getParameter("goodsCode");
 		String cartQuantity = request.getParameter("cartQuantity");
+		
+		System.out.println(goodsCode);
+		System.out.println(cartQuantity);
+		
 		int customerCode = loginCustomer.getCustomerCode();
 		
+		cartDao = new CartDao();
 		Cart c = new Cart();
 		c.setGoodsCode(Integer.parseInt(goodsCode));
 		c.setCustomerCode(customerCode);
 		c.setCartQuantity(Integer.parseInt(cartQuantity));
-		
+				
 		cartDao.insertCart(c);
 		
 		response.sendRedirect(request.getContextPath()+"/customer/cartList");

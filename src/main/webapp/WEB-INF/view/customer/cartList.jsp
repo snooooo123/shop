@@ -77,6 +77,59 @@
 	    color: #1a73e8;
 	    text-decoration: underline;
 	}
+	table {
+		    width: 100%;
+		    border-collapse: collapse;
+		    margin-top: 10px;
+		    background-color: #ffffff;
+		    border-radius: 8px;
+		    overflow: hidden;
+		    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+		    font-size: 15px;
+	}
+	
+	table th {
+	    background-color: #3498db;
+	    color: white;
+	    padding: 12px;
+	    text-align: center;
+	    font-weight: 600;
+	}
+	
+	table td {
+	    padding: 10px;
+	    border-bottom: 1px solid #eaeaea;
+	    text-align: center;
+	}
+	
+	/* 홀수, 짝수 줄 색상 */
+	table tr:nth-child(even) {
+	    background-color: #f8faff;
+	}
+	
+	/* hover 시 강조 */
+	table tr:hover {
+	    background-color: #e7f2ff;
+	    transition: 0.2s;
+	}
+	button[type="button"] {
+    background-color: #e74c3c;   /* 빨간색 배경 */
+    color: white;                /* 글자 색상 */
+    border: none;                /* 테두리 제거 */
+    padding: 12px 20px;          /* 여백 */
+    font-size: 16px;             /* 글자 크기 */
+    font-weight: 600;            /* 글자 두께 */
+    border-radius: 6px;          /* 둥근 모서리 */
+    cursor: pointer;             /* 클릭 가능한 손가락 커서 */
+    margin-top: 20px;            /* 위쪽 여백 */
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15); /* 기본 그림자 */
+    transition: background-color 0.2s, box-shadow 0.2s;
+	}
+	
+	button[type="button"]:hover {
+	    background-color: #c0392b;   /* hover 시 어두운 빨강 */
+	    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+	}
 </style>
 </head>
 <body>
@@ -118,8 +171,20 @@
 					</tr>					
 				</c:forEach>
 			</table>
-			<button type="submit">주문하기</button>
+			<button type="button" id="btn">주문하기</button>
+			
 		</form>
 	</div>
 </body>
+<script>
+	$('#btn').click(function() {
+		
+		if($('input[name="cartCodeList"]:checked').length==0) {
+			alert("상품을 선택해 주세요")
+			return;
+		}
+		
+		$('form').submit();
+	})
+</script>
 </html>
